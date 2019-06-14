@@ -94,7 +94,7 @@ public class PatientController {
     }
 
     @GetMapping(value= "/query")
-    public Iterable<Patient> getByQuery(@RequestParam(name= "q") String q) {
-        return patientService.findByQuery(q);
+    public Iterable<Patient> getByQuery(@RequestParam(name= "ecn") String ecn, @RequestParam(name= "condition") String condition, @RequestParam(name= "alertName") String alertName) {
+        return patientService.findByQuery(ecn, condition, alertName);
     }
 }

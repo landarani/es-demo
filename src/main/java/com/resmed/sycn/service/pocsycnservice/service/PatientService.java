@@ -123,4 +123,8 @@ public class PatientService {
     public Patient findByEcn(String id) { return patientRepository.findById(id).orElse(null); }
 
     public List<Patient> findByName(String name) { return patientRepository.findByFirstNameOrLastName(name); }
+
+    public List<Patient> findByQuery(String ecn, String condition, String alertName){
+        return patientRepository.findByQuery(ecn, condition, alertName);
+    }
 }
