@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,26 +41,30 @@ public class PatientServiceTest {
     @Test
     public void testSave() {
 
-        List<Alert> alerts = Collections.singletonList(Alert.builder().alertName("An Alert").build());
-        List<Condition> conditions = Collections.singletonList(Condition.builder().condition("COPD").build());
-        List<Device> devices = Collections.singletonList(Device.builder().serialNumber("12345678911").build());
 
-        Patient patient = Patient.builder()
-                .ecn("patient-ecn-1")
-                .firstName("first")
-                .lastName("last")
-                .alerts(alerts)
-                .conditions(conditions)
-                .devices(devices)
-                .build();
 
-        Patient testPatient = patientService.save(patient);
+            List<Alert> alerts = Collections.singletonList(Alert.builder().alertName("An Alert").build());
+            Condition condition = Condition.builder().condition("COPD").build();
+            List<Device> devices = Collections.singletonList(Device.builder().serialNumber("1234567891").build());
+
+            Patient patient = Patient.builder()
+                    .ecn("patient-ecn-")
+                    .firstName("first")
+                    .lastName("last")
+                    .alerts(alerts)
+                    .condition(condition)
+                    .devices(devices)
+                    .build();
+
+            Patient testPatient = patientService.save(patient);
+
 
         assertNotNull(testPatient.getEcn());
         assertEquals(testPatient.getFirstName(), patient.getFirstName());
         assertEquals(testPatient.getAlerts(), alerts);
-        assertEquals(testPatient.getConditions(), conditions);
+        assertEquals(testPatient.getCondition(), condition);
         assertEquals(testPatient.getDevices(), devices);
+
 
     }
 

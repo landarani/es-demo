@@ -1,6 +1,5 @@
 package com.resmed.sycn.service.pocsycnservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +22,5 @@ public class Patient {
 
     private List<Device> devices;
     private List<Alert> alerts;
-    private List<Condition> conditions;
+    private Condition condition;
 }
