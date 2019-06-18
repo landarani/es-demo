@@ -26,12 +26,12 @@ public class PatientService {
     }
 
     public void remove(Patient patient) {
-         patientRepository.delete(patient);
+        patientRepository.delete(patient);
     }
 
     public Patient addPatient(Patient patient) {
         Patient existingPatient = findByEcn(patient.getEcn());
-        if (existingPatient != null ) {
+        if (existingPatient != null) {
             existingPatient.setFirstName(patient.getFirstName());
             existingPatient.setLastName(patient.getLastName());
             return save(existingPatient);
@@ -44,13 +44,13 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Iterable<Patient> findByQuery(String q){
+    public Iterable<Patient> findByQuery(String q) {
         return patientRepository.search(QueryBuilders.queryStringQuery(q));
     }
 
-    public void addPatientAlert (String ecn, Alert alert) {
+    public void addPatientAlert(String ecn, Alert alert) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             if (patient.getAlerts() == null) {
                 patient.setAlerts(new ArrayList<>());
             }
@@ -64,17 +64,17 @@ public class PatientService {
         }
     }
 
-    public void addPatientCondition (String ecn, Condition condition) {
+    public void addPatientCondition(String ecn, Condition condition) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             patient.setCondition(condition);
             save(patient);
         }
     }
 
-    public void addPatientDevice (String ecn, Device device) {
+    public void addPatientDevice(String ecn, Device device) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             if (patient.getDevices() == null) {
                 patient.setDevices(new ArrayList<>());
             }
@@ -88,27 +88,27 @@ public class PatientService {
         }
     }
 
-    public void removePatientAlert (String ecn, Alert alert) {
+    public void removePatientAlert(String ecn, Alert alert) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             if (patient.getAlerts() != null) {
                 patient.getAlerts().remove(alert);
-            save(patient);
+                save(patient);
             }
         }
     }
 
-    public void removePatient (String ecn) {
+    public void removePatient(String ecn) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
-                remove(patient);
-            }
+        if (patient != null) {
+            remove(patient);
+        }
 
     }
 
-    public void removePatientCondition (String ecn, Condition condition) {
+    public void removePatientCondition(String ecn, Condition condition) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             if (patient.getCondition() != null) {
                 patient.setCondition(null);
                 save(patient);
@@ -116,9 +116,9 @@ public class PatientService {
         }
     }
 
-    public void removePatientDevice (String ecn, Device device) {
+    public void removePatientDevice(String ecn, Device device) {
         Patient patient = findByEcn(ecn);
-        if (patient != null ) {
+        if (patient != null) {
             if (patient.getDevices() != null) {
                 patient.getDevices().remove(device);
                 save(patient);
@@ -127,17 +127,21 @@ public class PatientService {
     }
 
 
-    public Patient findByEcn(String id) { return patientRepository.findById(id).orElse(null); }
+    public Patient findByEcn(String id) {
+        return patientRepository.findById(id).orElse(null);
+    }
 
-    public List<Patient> findByName(String name) { return patientRepository.findByFirstNameOrLastName(name); }
+    public List<Patient> findByName(String name) {
+        return patientRepository.findByFirstNameOrLastName(name);
+    }
 
-    public List<Patient> findByQuery(String ecn, String condition, String alertName){
-        List patientList  = patientRepository.findByQuery(ecn, condition, alertName);
+    public List<Patient> findByQuery(String ecn, String condition, String alertName) {
+        List patientList = patientRepository.findByQuery(ecn, condition, alertName);
         return patientList;
     }
 
-    public Page<Patient> findByCondition( String condition, Pageable pageable){
-        Page<Patient> patient  = patientRepository.findByCondition(condition, pageable);
+    public Page<Patient> findByCondition(String condition, Pageable pageable) {
+        Page<Patient> patient = patientRepository.findByCondition(condition, pageable);
         return patient;
     }
 

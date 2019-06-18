@@ -1,0 +1,11 @@
+---
+applications:
+- name: poc-sync-service
+  memory: 1G
+  services:
+  - config-server
+  - service-registry
+  - circuit-breaker-dashboard
+  env:
+    JAVA_OPTS: '-Xms512m -Xmx512m -XX:+UseConcMarkSweepGC'
+  timeout: 90

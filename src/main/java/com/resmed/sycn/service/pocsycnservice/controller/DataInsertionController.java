@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping(value= "/patient")
+@RequestMapping(value = "/patient")
 public class DataInsertionController {
 
     @Autowired
+    private PatientService patientService;
+    @Autowired
     private ElasticsearchTemplate esTemplate;
 
-    @Autowired
-    PatientService patientService;
-
-
     @PostMapping("/createBuildPatients")
-    public String savePatient(@RequestParam("start") int start, @RequestParam("end") int end, @RequestParam("condition") String condition, @RequestParam("alertName") String alertName) {
-                Patient patient = new Patient();
+    public String savePatient(@RequestParam("start") int start, @RequestParam("end") int end,
+                              @RequestParam("condition") String condition, @RequestParam("alertName") String alertName) {
+        Patient patient = new Patient();
         Alert alert = new Alert();
         Condition patientCondition = new Condition();
         Device device = new Device();
