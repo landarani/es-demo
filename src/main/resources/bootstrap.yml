@@ -1,6 +1,3 @@
 spring:
   application:
     name: poc-sync-service
-  cloud:
-    config:
-      failFast: true
